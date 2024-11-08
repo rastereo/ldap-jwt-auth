@@ -23,13 +23,20 @@
   "keywords": [],
   "dependencies": {
     "dotenv": "^16.4.5",
+    "envalid": "^8.0.0",
     "express": "^4.21.1",
-    "helmet": "^8.0.0"
+    "helmet": "^8.0.0",
+    "ldapts": "^7.2.1",
+    "passport": "^0.7.0",
+    "passport-ldapauth": "^3.0.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
+    "@types/passport": "^1.0.17",
+    "@types/validator": "^13.12.2",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "nodemon": "^3.1.7",
