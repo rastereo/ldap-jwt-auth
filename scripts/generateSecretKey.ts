@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import dotenv from 'dotenv';
 import { join } from 'path';
 
-import { EnvConfig } from '../types';
+import { EnvConfig } from '../src/types';
 
 dotenv.config();
 

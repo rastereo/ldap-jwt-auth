@@ -23,6 +23,9 @@ const env = cleanEnv(process.env, {
   RATE_LIMIT: num({ default: 100 }),
   RATE_LIMIT_WINDOW_MS: num({ default: 6e5 }),
   LOG_TO_CONSOLE: bool({ default: true }),
+  TEST_LDAP_UID: str({ default: 'user' }),
+  TEST_LDAP_EMAIL: str({ default: 'user@example.com' }),
+  TEST_LDAP_PASSWORD: str({ default: 'password' }),
 });
 
 export default env;

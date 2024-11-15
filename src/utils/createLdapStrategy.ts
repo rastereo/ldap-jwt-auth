@@ -1,6 +1,6 @@
 import LdapStrategy from 'passport-ldapauth';
 
-import env from '../config/envalid';
+import env from './envalid';
 
 function createLdapStrategy(searchFilter: string): LdapStrategy {
   return new LdapStrategy({

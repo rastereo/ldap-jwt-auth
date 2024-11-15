@@ -1,5 +1,5 @@
-import app from './app'; // https://blog.logrocket.com/how-to-set-up-node-typescript-express/
-import env from './config/envalid';
+import app from './app';
+import env from './utils/envalid';
 
 const port: number = env.PORT;
 

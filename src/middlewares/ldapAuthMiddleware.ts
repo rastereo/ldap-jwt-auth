@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import isEmail from 'validator/lib/isEmail';
 import passport from 'passport';
 
-import env from '../config/envalid';
-import createLdapStrategy from '../components/createLdapStrategy';
+import env from '../utils/envalid';
+import createLdapStrategy from '../utils/createLdapStrategy';
 import { ldapUser } from '../types';
-import logger from '../config/logger';
+import logger from '../utils/logger';
+import ErrorMessageList from '../utils/errorMessageList';
 
 const ldapAuth = (req: Request, res: Response, next: NextFunction): void => {
   const { username } = req.body;
@@ -22,17 +23,18 @@ const ldapAuth = (req: Request, res: Response, next: NextFunction): void => {
     info?: object | string,
     status?: number,
   ) => {
-
     if (err) {
       logger.error(err);
 
-      return res.status(500).json({ message: 'Something went wrong' });
+      return res
+        .status(500)
+        .json({ message: ErrorMessageList.somethingWentWrong });
     }
 
     if (!user) {
-      logger.error(info);
+      logger.error({ status, info });
 
-      return res.status(status ? status : 401).json(info);
+      return res.status(401).json({ message: ErrorMessageList.invalidCredentials });
     }
 
     const ldapUser: ldapUser = {

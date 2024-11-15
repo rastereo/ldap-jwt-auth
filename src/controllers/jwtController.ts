@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import env from '../config/envalid';
+import env from '../utils/envalid';
+import logger from '../utils/logger';
+import ErrorMessageList from '../utils/errorMessageList';
 import { ldapUser } from '../types';
-import logger from '../config/logger';
 
 export const sendToken = (req: Request, res: Response): void => {
   const user = req.user as ldapUser;
@@ -26,7 +27,7 @@ export const verifyToken = (req: Request, res: Response): void => {
   const token = req.cookies[env.JWT_COOKIE_NAME];
 
   if (!token) {
-    res.status(401).json({ message: 'Missing token' });
+    res.status(401).json({ message: ErrorMessageList.missingToken });
   } else {
     try {
       const { name } = jwt.verify(token, env.JWT_SECRET) as ldapUser;
@@ -35,7 +36,7 @@ export const verifyToken = (req: Request, res: Response): void => {
     } catch (err) {
       logger.error(err);
 
-      res.status(401).json({ message: 'Invalid token' });
+      res.status(401).json({ message: ErrorMessageList.invalidToken });
     }
   }
 };

@@ -1,5 +1,5 @@
 {
-  "name": "webletter-auth",
+  "name": "ldap-jwt-auth",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rastereo/webletter-auth.git"
+    "url": "git+https://github.com/rastereo/ldap-jwt-auth.git"
   },
   "author": "rastereo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rastereo/webletter-auth/issues"
+    "url": "https://github.com/rastereo/ldap-jwt-auth/issues"
   },
-  "homepage": "https://github.com/rastereo/webletter-auth#readme",
+  "homepage": "https://github.com/rastereo/ldap-jwt-auth#readme",
   "description": "",
   "keywords": [
     "ldap",
@@ -49,14 +49,19 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.9.0",
     "@types/passport": "^1.0.17",
+    "@types/supertest": "^6.0.2",
     "@types/validator": "^13.12.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.13.0"
   }
