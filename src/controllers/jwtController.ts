@@ -9,6 +9,8 @@ import { ldapUser } from '../types';
 export const sendToken = (req: Request, res: Response): void => {
   const user = req.user as ldapUser;
 
+  logger.info(user);
+
   const token = jwt.sign(user, env.JWT_SECRET, {
     expiresIn: env.JWT_EXPIRES_IN,
   });
@@ -31,6 +33,8 @@ export const verifyToken = (req: Request, res: Response): void => {
   } else {
     try {
       const { name } = jwt.verify(token, env.JWT_SECRET) as ldapUser;
+
+      logger.info(name);
 
       res.status(200).json({ name });
     } catch (err) {

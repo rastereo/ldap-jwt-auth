@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { bool, cleanEnv, num, port, str, url } from 'envalid';
+import { bool, cleanEnv, email, num, port, str, url } from 'envalid';
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ const env = cleanEnv(process.env, {
   JWT_SECRET: str(),
   JWT_EXPIRES_IN: str({ default: '1d' }),
   JWT_COOKIE_NAME: str({ default: 'jwt' }),
-  MIN_USERNAME_LENGTH: num({ default: 2 }),
+  MIN_USERNAME_LENGTH: num({ default: 3 }),
   MIN_PASSWORD_LENGTH: num({ default: 8 }),
   CORS_ALLOWED_ORIGIN: str({ default: '*' }),
   COOKIE_MAX_AGE: num({ default: 86400 }),
@@ -24,7 +24,7 @@ const env = cleanEnv(process.env, {
   RATE_LIMIT_WINDOW_MS: num({ default: 6e5 }),
   LOG_TO_CONSOLE: bool({ default: true }),
   TEST_LDAP_UID: str({ default: 'user' }),
-  TEST_LDAP_EMAIL: str({ default: 'user@example.com' }),
+  TEST_LDAP_EMAIL: email({ default: 'user@example.com' }),
   TEST_LDAP_PASSWORD: str({ default: 'password' }),
 });
 

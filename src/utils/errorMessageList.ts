@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 enum ErrorMessageList {
   notFound =  'Not Found',
   validationFailed = 'Validation failed',

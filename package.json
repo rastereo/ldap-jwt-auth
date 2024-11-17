@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
-    "key": "ts-node src/utils/generateSecretKey.ts",
+    "key": "ts-node scripts/generateSecretKey.ts",
     "lint": "eslint ."
   },
   "repository": {
@@ -62,6 +62,7 @@
     "prettier": "^3.3.3",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.13.0"
   }

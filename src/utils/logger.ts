@@ -1,4 +1,5 @@
 import pino from 'pino';
+
 import env from './envalid';
 
 let transport;
