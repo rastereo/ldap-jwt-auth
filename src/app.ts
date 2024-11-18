@@ -30,9 +30,9 @@ app.use(pinoHttp({ logger }));
 
 app.use(passport.initialize());
 
-app.post('/login', bodyValidator, ldapAuth, sendToken);
+app.post('/auth/login', bodyValidator, ldapAuth, sendToken);
 
-app.get('/verify', cookiesValidator, verifyToken);
+app.get('/auth/verify', cookiesValidator, verifyToken);
 
 app.all('*', (req: Request, res: Response) => {
   res.status(404).json({ message: ErrorMessageList.notFound });
