@@ -33,10 +33,6 @@ app.use(pinoHttp({ logger }));
 
 app.use(passport.initialize());
 
-app.get('/auth/ip', (req: Request, res: Response) => {
-  res.send(req.ip);
-})
-
 app.post(env.LOGIN_PATH, bodyValidator, ldapAuth, sendToken);
 
 app.get(env.VERIFY_PATH, cookiesValidator, verifyToken);
