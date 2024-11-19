@@ -5,7 +5,7 @@ import env from './envalid';
 let transport;
 
 if (process.env.NODE_ENV !== 'test') {
-  if (env.LOG_TO_CONSOLE) {
+  if (env.LOGS_TO_CONSOLE && env.WRITE_LOGS) {
     transport = pino.transport({
       targets: [
         {
@@ -18,12 +18,21 @@ if (process.env.NODE_ENV !== 'test') {
         },
       ],
     });
-  } else {
+  } else if (env.WRITE_LOGS) {
     transport = pino.transport({
       targets: [
         {
           target: 'pino/file',
           options: { destination: `${process.cwd()}/server.log` },
+        },
+      ],
+    });
+  } else if (env.LOGS_TO_CONSOLE) {
+    transport = pino.transport({
+      targets: [
+        {
+          target: 'pino-pretty',
+          options: { translateTime: 'SYS:standard' },
         },
       ],
     });

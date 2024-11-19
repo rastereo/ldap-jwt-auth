@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
-import { isCelebrateError } from 'celebrate';
+import { isCelebrateError, Segments } from 'celebrate';
 import cors from 'cors';
 import pinoHttp from 'pino-http';
 
@@ -13,8 +13,11 @@ import corsOptions from './configs/corsConfig';
 import logger from './utils/logger';
 import ErrorMessageList from './utils/errorMessageList';
 import { bodyValidator, cookiesValidator } from './utils/celebrateValidator';
+import env from './utils/envalid';
 
 const app: Express = express();
+
+app.set('trust proxy', env.TRUST_PROXY_LEVEL); // https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues
 
 app.use(rateLimitConfig);
 
@@ -30,9 +33,13 @@ app.use(pinoHttp({ logger }));
 
 app.use(passport.initialize());
 
-app.post('/auth/login', bodyValidator, ldapAuth, sendToken);
+app.get('/auth/ip', (req: Request, res: Response) => {
+  res.send(req.ip);
+})
 
-app.get('/auth/verify', cookiesValidator, verifyToken);
+app.post(env.LOGIN_PATH, bodyValidator, ldapAuth, sendToken);
+
+app.get(env.VERIFY_PATH, cookiesValidator, verifyToken);
 
 app.all('*', (req: Request, res: Response) => {
   res.status(404).json({ message: ErrorMessageList.notFound });

@@ -21,6 +21,8 @@ export const sendToken = (req: Request, res: Response): void => {
       maxAge: env.COOKIE_MAX_AGE,
       httpOnly: env.COOKIE_HTTP_ONLY,
       secure: env.COOKIE_SECURE,
+      path: env.COOKIE_PATH,
+      sameSite: env.COOKIE_SAME_SITE,
     })
     .json(user);
 };
