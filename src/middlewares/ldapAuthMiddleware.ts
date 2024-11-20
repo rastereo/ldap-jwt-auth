@@ -5,7 +5,7 @@ import passport from 'passport';
 import env from '../utils/envalid';
 import createLdapStrategy from '../utils/createLdapStrategy';
 import { ldapUser } from '../types';
-import logger from '../utils/logger';
+import { logger } from '../utils/logger';
 import ErrorMessageList from '../utils/errorMessageList';
 
 const ldapAuth = (req: Request, res: Response, next: NextFunction): void => {

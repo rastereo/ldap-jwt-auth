@@ -10,7 +10,7 @@ import ldapAuth from './middlewares/ldapAuthMiddleware';
 import { sendToken, verifyToken } from './controllers/jwtController';
 import rateLimitConfig from './configs/rateLimitConfig';
 import corsOptions from './configs/corsConfig';
-import logger from './utils/logger';
+import { logger } from './utils/logger';
 import ErrorMessageList from './utils/errorMessageList';
 import { bodyValidator, cookiesValidator } from './utils/celebrateValidator';
 import env from './utils/envalid';

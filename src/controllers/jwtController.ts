@@ -2,14 +2,14 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import env from '../utils/envalid';
-import logger from '../utils/logger';
+import { accessLogger, logger } from '../utils/logger';
 import ErrorMessageList from '../utils/errorMessageList';
 import { ldapUser } from '../types';
 
 export const sendToken = (req: Request, res: Response): void => {
   const user = req.user as ldapUser;
 
-  logger.info(user);
+  accessLogger.info({ name: user.name, url: req.url, host: req.headers.host });
 
   const token = jwt.sign(user, env.JWT_SECRET, {
     expiresIn: env.JWT_EXPIRES_IN,
@@ -31,12 +31,12 @@ export const verifyToken = (req: Request, res: Response): void => {
   const token = req.cookies[env.JWT_COOKIE_NAME];
 
   if (!token) {
-    res.status(401).json({ message: ErrorMessageList.missingToken });
+    res.status(400).json({ message: ErrorMessageList.missingToken });
   } else {
     try {
       const { name } = jwt.verify(token, env.JWT_SECRET) as ldapUser;
 
-      logger.info(name);
+      accessLogger.info({ name, url: req.url, host: req.headers.host });
 
       res.status(200).json({ name });
     } catch (err) {
