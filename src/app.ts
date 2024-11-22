@@ -6,19 +6,12 @@ import { isCelebrateError, Segments } from 'celebrate';
 import cors from 'cors';
 import pinoHttp from 'pino-http';
 
-import ldapAuth from './middlewares/ldapAuthMiddleware';
-import jwtVerify from './middlewares/jwtMiddleware';
-import {
-  sendToken,
-  sendName,
-  deleteToken,
-} from './controllers/controllers';
 import rateLimitConfig from './configs/rateLimitConfig';
 import corsOptions from './configs/corsConfig';
 import { logger } from './utils/logger';
 import ErrorMessageList from './utils/errorMessageList';
-import { bodyValidator, cookiesValidator } from './utils/celebrateValidator';
 import env from './utils/envalid';
+import router from './routes/router';
 
 const app: Express = express();
 
@@ -38,15 +31,7 @@ app.use(pinoHttp({ logger }));
 
 app.use(passport.initialize());
 
-app.post(env.LOGIN_PATH, bodyValidator, ldapAuth, sendToken);
-
-app.get(env.VERIFY_PATH, cookiesValidator, jwtVerify, sendName);
-
-app.get(env.LOGOUT_PATH, cookiesValidator, jwtVerify, deleteToken);
-
-app.all('*', (req: Request, res: Response) => {
-  res.status(404).json({ message: ErrorMessageList.notFound });
-});
+app.use(router);
 
 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
