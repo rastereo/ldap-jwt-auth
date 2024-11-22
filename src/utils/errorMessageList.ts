@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 enum ErrorMessageList {
-  notFound =  'Not Found',
+  notFound = 'Not Found',
   validationFailed = 'Validation failed',
   invalidCredentials = 'Invalid credentials',
   somethingWentWrong = 'Something went wrong',
   missingToken = 'Missing token',
   invalidToken = 'Invalid token',
+  logout = 'Logout successful',
 }
 
 export default ErrorMessageList;

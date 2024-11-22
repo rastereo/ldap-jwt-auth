@@ -27,22 +27,11 @@ export const sendToken = (req: Request, res: Response): void => {
     .json(user);
 };
 
-export const verifyToken = (req: Request, res: Response): void => {
-  const token = req.cookies[env.JWT_COOKIE_NAME];
+export const sendName = (req: Request, res: Response): void => {
+  res.status(200).json({ name: req.user })
+};
 
-  if (!token) {
-    res.status(400).json({ message: ErrorMessageList.missingToken });
-  } else {
-    try {
-      const { name } = jwt.verify(token, env.JWT_SECRET) as ldapUser;
-
-      accessLogger.info({ name, url: req.url, host: req.headers.host });
-
-      res.status(200).json({ name });
-    } catch (err) {
-      logger.error(err);
-
-      res.status(401).json({ message: ErrorMessageList.invalidToken });
-    }
-  }
+export const deleteToken = (req: Request, res: Response): void => {
+  res.clearCookie(env.JWT_COOKIE_NAME, { path: env.COOKIE_PATH });
+  res.status(200).json({ message: ErrorMessageList.logout });
 };

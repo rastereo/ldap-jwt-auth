@@ -196,3 +196,34 @@ describe(`GET ${env.VERIFY_PATH}`, () => {
     expect(typeof body.name).toBe('string');
   });
 });
+
+describe(`GET ${env.LOGOUT_PATH}`, () => {
+  it('Request without cookie', async () => {
+    const { body } = await request(server)
+      .get(env.LOGOUT_PATH)
+      .expect(400)
+      .expect('Content-Type', /json/);
+
+    expect(body.message).toBe(ErrorMessageList.validationFailed);
+  });
+
+  it('Request with wrong jwt cookie', async () => {
+    const { body } = await request(server)
+      .get(env.LOGOUT_PATH)
+      .set('Cookie', [`${env.JWT_COOKIE_NAME}=asdjasdalsdkl`])
+      .expect(401)
+      .expect('Content-Type', /json/);
+
+    expect(body.message).toBe(ErrorMessageList.invalidToken);
+  });
+
+  it('Request with valid jwt cookie', async () => {
+    const { body } = await request(server)
+      .get(env.LOGOUT_PATH)
+      .set('Cookie', jwt)
+      .expect(200)
+      .expect('Content-Type', /json/);
+
+    expect(body.message).toBe(ErrorMessageList.logout);
+  });
+});

@@ -8,6 +8,7 @@ const env = cleanEnv(process.env, {
   TRUST_PROXY_LEVEL: num({ default: 0 }),
   LOGIN_PATH: str({ default: '/login'}),
   VERIFY_PATH: str({ default: '/verify'}),
+  LOGOUT_PATH: str({ default: '/logout'}),
   LDAP_URL: url({ default: 'ldap://localhost:389' }),
   LDAP_BIND_DN: str(),
   LDAP_BIND_CREDENTIAL: str(),
