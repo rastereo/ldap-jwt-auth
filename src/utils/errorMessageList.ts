@@ -6,7 +6,6 @@ enum ErrorMessageList {
   somethingWentWrong = 'Something went wrong',
   missingToken = 'Missing token',
   invalidToken = 'Invalid token',
-  logout = 'Logout successful',
 }
 
 export default ErrorMessageList;

@@ -28,14 +28,14 @@ export const sendToken = (req: Request, res: Response): void => {
 };
 
 export const sendName = (req: Request, res: Response): void => {
-  res.status(200).json({ name: req.user })
+  res.status(200).json({ name: req.user });
 };
 
 export const deleteCookie = (req: Request, res: Response): void => {
   res.clearCookie(env.JWT_COOKIE_NAME, { path: env.COOKIE_PATH });
-  res.status(200).json({ message: ErrorMessageList.logout });
+  res.status(200).json({ message: 'Logout successful' });
 };
 
 export const notFound = (req: Request, res: Response) => {
-  res.status(404).json({ message: ErrorMessageList.notFound });
-}
+  res.status(404).send(ErrorMessageList.notFound);
+};

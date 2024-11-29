@@ -38,9 +38,9 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error(err);
 
   if (isCelebrateError(err)) {
-    res.status(400).json({ message: ErrorMessageList.validationFailed });
+    res.status(400).send(ErrorMessageList.validationFailed);
   } else {
-    res.status(500).json({ message: ErrorMessageList.somethingWentWrong });
+    res.status(500).send(ErrorMessageList.somethingWentWrong);
   }
 });
 

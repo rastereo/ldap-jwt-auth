@@ -28,13 +28,13 @@ const ldapAuth = (req: Request, res: Response, next: NextFunction): void => {
 
       return res
         .status(500)
-        .json({ message: ErrorMessageList.somethingWentWrong });
+        .send(ErrorMessageList.somethingWentWrong);
     }
 
     if (!user) {
       logger.error({ status, info });
 
-      return res.status(401).json({ message: ErrorMessageList.invalidCredentials });
+      return res.status(401).send(ErrorMessageList.invalidCredentials);
     }
 
     const ldapUser: ldapUser = {

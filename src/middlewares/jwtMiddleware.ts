@@ -10,7 +10,7 @@ const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies[env.JWT_COOKIE_NAME];
 
   if (!token) {
-    res.status(400).json({ message: ErrorMessageList.missingToken });
+    res.status(400).send(ErrorMessageList.missingToken);
   } else {
     try {
       const { name } = jwt.verify(token, env.JWT_SECRET) as ldapUser;
@@ -23,7 +23,7 @@ const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
     } catch (err) {
       logger.error(err);
 
-      res.status(401).json({ message: ErrorMessageList.invalidToken });
+      res.status(401).send(ErrorMessageList.invalidToken);
     }
   }
 };
