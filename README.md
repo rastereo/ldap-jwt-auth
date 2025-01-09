@@ -117,31 +117,29 @@ You can test the LDAP authentication functionality using the Online LDAP Test Se
 
 1. Update your `.env` file with the following credentials provided by the Forumsys LDAP Test Server:
 
-   ```
-   LDAP_URL=ldap://ldap.forumsys.com:389
-   LDAP_BIND_DN=cn=read-only-admin,dc=example,dc=com
-   LDAP_BIND_CREDENTIAL=password
-   LDAP_SEARCH_BASE=dc=example,dc=com
-   LDAP_SEARCH_FILTER_EMAIL=(mail={{email}})
-   LDAP_SEARCH_FILTER_UID=(uid={{username}})
-   ```
+```
+LDAP_URL=ldap://ldap.forumsys.com:389
+LDAP_BIND_DN=cn=read-only-admin,dc=example,dc=com
+LDAP_BIND_CREDENTIAL=password
+LDAP_SEARCH_BASE=dc=example,dc=com
+LDAP_SEARCH_FILTER_EMAIL=(mail={{email}})
+LDAP_SEARCH_FILTER_UID=(uid={{username}})
+```
 
 2. The Forumsys LDAP Test Server provides several test users. Here are some examples:
 
-   | Username | Password | Email                |
-   | -------- | -------- | -------------------- |
-   | einstein | password | einstein@example.com |
-   | newton   | password | newton@example.com   |
-   | galieleo | password | galieleo@example.com |
+| Username | Password | Email                |
+| -------- | -------- | -------------------- |
+| einstein | password | einstein@example.com |
+| newton   | password | newton@example.com   |
+| galieleo | password | galieleo@example.com |
 
 3. Start the application and use the /login endpoint to authenticate with the test users.
 
-   Example request:
-
-   ```bash
-   curl -X POST http://localhost:3000/login \
-   -H "Content-Type: application/json" \
-   -d '{"username": "einstein", "password": "password"}'
-   ```
+```bash
+curl -X POST http://localhost:3000/login \
+-H "Content-Type: application/json" \
+-d '{"username": "einstein", "password": "password"}'
+```
 
 4. If the credentials are correct, the server will return a JWT token in an HTTP-only cookie. You can then use the /verify endpoint to validate the token and retrieve user information.
