@@ -1,8 +1,8 @@
 # LDAP JWT Authentication
 
-This project provides a secure authentication system using LDAP for user verification and JWT (JSON Web Tokens) for session management. It is built with Express.js and includes various security features such as rate limiting, CORS, and helmet for HTTP headers.
+This project provides a secure authentication system using LDAP for user verification and JWT (JSON Web Tokens) for session management. It is built with Express.js and includes various security features such as rate limiting, CORS, and helmet for HTTP headers. The JWT is securely transmitted in an HTTP-only cookie to enhance security and prevent access from client-side scripts.
 
-## Features
+## 📋Features
 
 - **LDAP Authentication**: Integrates with LDAP servers to authenticate users.
 - **JWT Tokens**: Uses JSON Web Tokens for secure session management.
@@ -13,7 +13,7 @@ This project provides a secure authentication system using LDAP for user verific
 - **Logging**: Utilizes `pino` for efficient logging.
 - **Validation**: Implements request validation using `celebrate` and `joi`.
 
-## Installation
+## 🛠️Installation
 
 1. Clone the repository:
 
@@ -30,7 +30,7 @@ npm install
 
 3. Create a `.env` file in the root directory and configure the necessary environment variables. Refer to `utils/envalid.ts` for the required variables.
 
-## Usage
+## 🚀Usage
 
 ### Running the Application
 
@@ -55,15 +55,15 @@ Run tests using Jest:
 npm run key
 ```
 
-# API Endpoints
+## 📑API Endpoints
 
-- POST /login: Authenticate a user with LDAP and return a JWT token.
+- `POST /login`: Authenticate a user with LDAP and return a JWT token.
 
-- GET /verify: Verify the JWT token and return the user's name.
+- `GET /verify`: Verify the JWT token and return the user's name.
 
-- GET /logout: Invalidate the JWT token by deleting the cookie.
+- `GET /logout`: Invalidate the JWT token by deleting the cookie.
 
-# Configuration
+## ⚙️Configuration
 
 This table outlines every configuration variable along with their types, default values, and brief descriptions of their purposes.
 
@@ -102,3 +102,5 @@ This table outlines every configuration variable along with their types, default
 | TEST_LDAP_UID            | string | 'user'                 | Test user UID for LDAP.                                                      |
 | TEST_LDAP_EMAIL          | email  | 'user@example.com'     | Test user email for LDAP.                                                    |
 | TEST_LDAP_PASSWORD       | string | 'password'             | Test user password for LDAP.                                                 |
+
+This table reflects the configuration variables as defined in the utils/envalid.ts file.
