@@ -47,12 +47,18 @@ npm start
 npm run dev
 ```
 
-### Running the Application
+### Generating Secret Key
 
-Run tests using Jest:
+Generate a JWT secret key:
 
 ```bash
 npm run key
+```
+
+### Testing
+
+```bash
+npm run test
 ```
 
 ## 📑API Endpoints
