@@ -22,7 +22,7 @@ describe('Test app', () => {
     const { status } = await request(server)
       .get('/non-existent')
       .expect(404)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
     expect(status).toBe(404);
   });
@@ -30,101 +30,101 @@ describe('Test app', () => {
 
 describe(`POST ${env.LOGIN_PATH}`, () => {
   it('Request without body', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request without username', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         password: 'longpassword',
       })
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request without password', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: 'username',
       })
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with invalid username', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: 'u'.repeat(env.MIN_USERNAME_LENGTH - 1),
         password: 'longpassword',
       })
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with long invalid username', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: 'u'.repeat(env.MAX_USERNAME_LENGTH + 1),
         password: 'longpassword',
       })
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with invalid password', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: 'username',
         password: 'p'.repeat(env.MIN_PASSWORD_LENGTH - 1),
       })
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with wrong password', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: env.TEST_LDAP_UID,
         password: 'longpassword',
       })
       .expect(401)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.invalidCredentials);
+    expect(text).toBe(ErrorMessageList.invalidCredentials);
   });
 
   it('Request with wrong username', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .post(env.LOGIN_PATH)
       .send({
         username: 'username',
         password: env.TEST_LDAP_PASSWORD,
       })
       .expect(401)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.invalidCredentials);
+    expect(text).toBe(ErrorMessageList.invalidCredentials);
   });
 
   it('Request with valid credentials(email)', async () => {
@@ -168,22 +168,22 @@ describe(`POST ${env.LOGIN_PATH}`, () => {
 
 describe(`GET ${env.VERIFY_PATH}`, () => {
   it('Request without cookie', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .get(env.VERIFY_PATH)
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with wrong jwt cookie', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .get(env.VERIFY_PATH)
       .set('Cookie', [`${env.JWT_COOKIE_NAME}=asdjasdalsdkl`])
       .expect(401)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.invalidToken);
+    expect(text).toBe(ErrorMessageList.invalidToken);
   });
 
   it('Request with valid jwt cookie', async () => {
@@ -199,31 +199,31 @@ describe(`GET ${env.VERIFY_PATH}`, () => {
 
 describe(`GET ${env.LOGOUT_PATH}`, () => {
   it('Request without cookie', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .get(env.LOGOUT_PATH)
       .expect(400)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.validationFailed);
+    expect(text).toBe(ErrorMessageList.validationFailed);
   });
 
   it('Request with wrong jwt cookie', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .get(env.LOGOUT_PATH)
       .set('Cookie', [`${env.JWT_COOKIE_NAME}=asdjasdalsdkl`])
       .expect(401)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.invalidToken);
+    expect(text).toBe(ErrorMessageList.invalidToken);
   });
 
   it('Request with valid jwt cookie', async () => {
-    const { body } = await request(server)
+    const { text } = await request(server)
       .get(env.LOGOUT_PATH)
       .set('Cookie', jwt)
       .expect(200)
-      .expect('Content-Type', /json/);
+      .expect('Content-Type', /text/);
 
-    expect(body.message).toBe(ErrorMessageList.logout);
+    expect(text).toBe('Logout successful');
   });
 });

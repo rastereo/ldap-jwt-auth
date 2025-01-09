@@ -2,7 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
-import { isCelebrateError, Segments } from 'celebrate';
+import { isCelebrateError } from 'celebrate';
 import cors from 'cors';
 import pinoHttp from 'pino-http';
 
@@ -15,7 +15,8 @@ import router from './routes/router';
 
 const app: Express = express();
 
-app.set('trust proxy', env.TRUST_PROXY_LEVEL); // https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues
+// https://express-rate-limit.mintlify.app/guides/troubleshooting-proxy-issues
+app.set('trust proxy', env.TRUST_PROXY_LEVEL);
 
 app.use(rateLimitConfig);
 
@@ -33,7 +34,7 @@ app.use(passport.initialize());
 
 app.use(router);
 
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   logger.error(err);
 
