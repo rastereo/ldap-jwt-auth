@@ -31,7 +31,7 @@ const env = cleanEnv(process.env, {
   COOKIE_HTTP_ONLY: bool({ default: true }),
   COOKIE_SECURE: bool({ default: false }),
   COOKIE_PATH: str({ default: '/' }),
-  COOKIE_SAME_SITE: str({ default: 'lax', choices: ['lax', 'strict', 'none'] }),
+  COOKIE_SAME_SITE: str({ default: 'none', choices: ['lax', 'strict', 'none'] }),
   RATE_LIMIT: num({ default: 100 }),
   RATE_LIMIT_WINDOW_MS: num({ default: 6e5 }),
   WRITE_LOGS: bool({ default: true }),
