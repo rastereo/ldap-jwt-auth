@@ -103,4 +103,39 @@ This table outlines every configuration variable along with their types, default
 | TEST_LDAP_EMAIL          | email  | 'user@example.com'     | Test user email for LDAP.                                                    |
 | TEST_LDAP_PASSWORD       | string | 'password'             | Test user password for LDAP.                                                 |
 
-This table reflects the configuration variables as defined in the utils/envalid.ts file.
+## 🧪 Testing with Online LDAP Test Server
+
+You can test the LDAP authentication functionality using the Online LDAP Test Server provided by [Forumsys](https://www.forumsys.com/2022/05/10/online-ldap-test-server/). This server is a free, publicly available LDAP server designed for testing and development purposes.
+
+### Steps to Test:
+
+1. Update your `.env` file with the following credentials provided by the Forumsys LDAP Test Server:
+
+```
+LDAP_URL=ldap://ldap.forumsys.com:389
+LDAP_BIND_DN=cn=read-only-admin,dc=example,dc=com
+LDAP_BIND_CREDENTIAL=password
+LDAP_SEARCH_BASE=dc=example,dc=com
+LDAP_SEARCH_FILTER_EMAIL=(mail={{email}})
+LDAP_SEARCH_FILTER_UID=(uid={{username}})
+```
+
+2. The Forumsys LDAP Test Server provides several test users. Here are some examples:
+
+| Username | Password | Email                |
+| -------- | -------- | -------------------- |
+| einstein | password | einstein@example.com |
+| newton   | password | newton@example.com   |
+| galieleo | password | galieleo@example.com |
+
+3. Start the application and use the /login endpoint to authenticate with the test users.
+
+Example request:
+
+```bash
+curl -X POST http://localhost:3000/login \
+-H "Content-Type: application/json" \
+-d '{"username": "einstein", "password": "password"}'
+```
+
+4. If the credentials are correct, the server will return a JWT token in an HTTP-only cookie. You can then use the /verify endpoint to validate the token and retrieve user information.
