@@ -19,8 +19,7 @@ if (existsSync(envPath)) {
 
 envConfig.JWT_SECRET = randomKey;
 
-const envContent = Object
-  .keys(envConfig)
+const envContent = Object.keys(envConfig)
   .map((key) => {
     return `${key}='${envConfig[key]}'`;
   })

@@ -1,7 +1,12 @@
 import { Router } from 'express';
 
 import env from '../utils/envalid';
-import { deleteCookie, notFound, sendName, sendToken } from '../controllers/controllers';
+import {
+  deleteCookie,
+  notFound,
+  sendName,
+  sendToken,
+} from '../controllers/controllers';
 import ldapAuth from '../middlewares/ldapAuthMiddleware';
 import jwtVerify from '../middlewares/jwtMiddleware';
 import { bodyValidator, cookiesValidator } from '../utils/celebrateValidator';

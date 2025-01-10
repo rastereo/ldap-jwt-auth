@@ -18,34 +18,36 @@ const ldapAuth = (req: Request, res: Response, next: NextFunction): void => {
 
   const strategy = createLdapStrategy(searchFilter);
 
-  passport.authenticate(strategy, { session: false }, (
-    err: unknown,
-    user?: { cn: string, mail: string } | false | null,
-    info?: object | string,
-    status?: number,
-  ) => {
-    if (err) {
-      logger.error(err);
+  passport.authenticate(
+    strategy,
+    { session: false },
+    (
+      err: unknown,
+      user?: { cn: string; mail: string } | false | null,
+      info?: object | string,
+      status?: number,
+    ) => {
+      if (err) {
+        logger.error(err);
 
-      return res
-        .status(500)
-        .send(ErrorMessageList.somethingWentWrong);
-    }
+        return res.status(500).send(ErrorMessageList.somethingWentWrong);
+      }
 
-    if (!user) {
-      logger.error({ status, info });
+      if (!user) {
+        logger.error({ status, info });
 
-      return res.status(401).send(ErrorMessageList.invalidCredentials);
-    }
+        return res.status(401).send(ErrorMessageList.invalidCredentials);
+      }
 
-    const ldapUser: ldapUser = {
-      name: user.cn,
-    };
+      const ldapUser: ldapUser = {
+        name: user.cn,
+      };
 
-    req.user = ldapUser;
+      req.user = ldapUser;
 
-    next();
-  })(req, res, next);
+      next();
+    },
+  )(req, res, next);
 };
 
 export default ldapAuth;
