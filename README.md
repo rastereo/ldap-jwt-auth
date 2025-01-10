@@ -65,9 +65,24 @@ npm run test
 
 - `POST /login`: Authenticate a user with LDAP and return a JWT token.
 
+```bash
+curl -X POST http://localhost:3000/login \
+-H "Content-Type: application/json" \
+-d '{"username": "your_username", "password": "your_password"}'
+```
+
 - `GET /verify`: Verify the JWT token and return the user's name.
 
+```bash
+curl -X GET http://localhost:3000/verify \
+-H "Cookie: jwt=your_jwt_token"
+```
+
 - `GET /logout`: Invalidate the JWT token by deleting the cookie.
+
+```bash
+curl -X GET http://localhost:3000/logout
+```
 
 ## ⚙️Configuration
 
