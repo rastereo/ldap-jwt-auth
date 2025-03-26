@@ -34,7 +34,7 @@ export const sendName = (req: Request, res: Response): void => {
 
 export const deleteCookie = (req: Request, res: Response): void => {
   res.clearCookie(env.JWT_COOKIE_NAME, { path: env.COOKIE_PATH });
-  res.status(200).send('Logout successful');
+  res.status(200).json({ message: 'Logout successful' });
 };
 
 export const notFound = (req: Request, res: Response) => {
